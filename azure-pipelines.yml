@@ -17,3 +17,21 @@ steps:
     echo Add other tasks to build, test, and deploy your project.
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
+
+- task: PowerShell@2
+  inputs:
+    filePath: './script/test.ps1'
+
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      # Writes a warning to build summary and to log in yellow text
+      Write-Host  "##vso[task.LogIssue type=warning;]This is the warning"
+
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      # Writes an error to build summary and to log in red text
+      Write-Host  "##vso[task.LogIssue type=error;]This is the error"
