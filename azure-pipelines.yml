@@ -2,7 +2,7 @@ trigger:
 - master
 
 stages:
-- stage: Stage 1
+- stage: Stage_1
   pool:
     vmImage: 'ubuntu-latest'
   jobs:
@@ -14,7 +14,7 @@ stages:
       steps:
         - script: echo from Job 2
           displayName: 'Run job 2 script'
-- stage: Stage 2
+- stage: Stage_2
   pool:
     vmImage: 'ubuntu-latest'
   jobs:
@@ -27,7 +27,7 @@ stages:
         - script: echo from Job 2
           displayName: 'Run job 2 script'
 
-- stage: Stage 3
+- stage: Stage_3
   pool:
     vmImage: 'ubuntu-latest'
   jobs:
