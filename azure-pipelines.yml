@@ -4,8 +4,6 @@ trigger:
 stages:
 - stage: Stage_1
   dependsOn: [Stage_3]
-  pool:
-    vmImage: 'ubuntu-latest'
   jobs:
     - job: Job_1_1
       steps:
@@ -13,12 +11,21 @@ stages:
           displayName: 'Run job1 script'
         - script: echo from Job 2
           displayName: 'Run job 2 script'
-- stage: Stage_2
+
+- stage: Stage_2_1
   dependsOn: [Stage_1]
-  pool:
-    vmImage: 'ubuntu-latest'
   jobs:
-    - job: Job_2_1
+    - job: Job_2_1_1
+      steps:
+        - script: echo from Job 1
+          displayName: 'Run job1 script'
+        - script: echo from Job 2
+          displayName: 'Run job 2 script'
+
+- stage: Stage_2_2
+  dependsOn: [Stage_1]
+  jobs:
+    - job: Job_2_2_1
       steps:
         - script: echo from Job 1
           displayName: 'Run job1 script'
@@ -26,9 +33,7 @@ stages:
           displayName: 'Run job 2 script'
 
 - stage: Stage_3
-  dependsOn: []
-  pool:
-    vmImage: 'ubuntu-latest'
+  dependsOn: [Stage_2_1, Stage_2_2]
   jobs:
     - job: Job 
       steps:
