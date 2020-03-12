@@ -3,7 +3,7 @@ trigger:
 
 stages:
 - stage: Stage_1
-  dependsOn: []
+  dependsOn: [Stage_3]
   pool:
     vmImage: 'ubuntu-latest'
   jobs:
@@ -14,7 +14,7 @@ stages:
         - script: echo from Job 2
           displayName: 'Run job 2 script'
 - stage: Stage_2
-  dependsOn: []
+  dependsOn: [Stage_1]
   pool:
     vmImage: 'ubuntu-latest'
   jobs:
