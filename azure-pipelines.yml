@@ -1,37 +1,38 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
 - master
 
-pool:
-  vmImage: 'ubuntu-latest'
+stages:
+- stage: Stage 1
+  pool:
+    vmImage: 'ubuntu-latest'
+  jobs:
+    - job: Job_1_1
+      steps:
+        - script: echo from Job 1
+          displayName: 'Run job1 script'
+    - job: Job_1_2
+      steps:
+        - script: echo from Job 2
+          displayName: 'Run job 2 script'
+- stage: Stage 2
+  pool:
+    vmImage: 'ubuntu-latest'
+  jobs:
+    - job: Job_2_1
+      steps:
+        - script: echo from Job 1
+          displayName: 'Run job1 script'
+    - job: Job_2_2
+      steps:
+        - script: echo from Job 2
+          displayName: 'Run job 2 script'
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
-
-- task: PowerShell@2
-  inputs:
-    filePath: './script/test.ps1'
-
-- task: PowerShell@2
-  inputs:
-    targetType: 'inline'
-    script: |
-      # Writes a warning to build summary and to log in yellow text
-      Write-Host  "##vso[task.LogIssue type=warning;]This is the warning"
-
-- task: PowerShell@2
-  inputs:
-    targetType: 'inline'
-    script: |
-      # Writes an error to build summary and to log in red text
-      Write-Host  "##vso[task.LogIssue type=error;]This is the error"
+- stage: Stage 3
+  pool:
+    vmImage: 'ubuntu-latest'
+  jobs:
+    - job: Job 
+      steps:
+        - task: PowerShell@2
+          inputs:
+            filePath: './script/test.ps1'
