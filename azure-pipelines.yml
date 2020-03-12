@@ -3,7 +3,6 @@ trigger:
 
 stages:
 - stage: Stage_1
-  dependsOn: [Stage_3]
   jobs:
     - job: Job_1_1
       steps:
