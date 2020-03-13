@@ -25,9 +25,9 @@ jobs:
       Write-Host "global_variable "  (('$(global_variable)' -eq 'value_global-overwrite_1') ? '==' : "!=") + " value_global-overwrite_1"
 
       echo "##vso[task.setvariable variable=myOutputVar;isOutput=true]this is the value"
-      Write-Host "myOutputVar = $(myOutputVar)"
       Write-Host "myOutputVar = $env:myOutputVar"
       Write-Host "myOutputVar = $env:MYOUTPUTVAR"
+      Write-Host $env
     name:
       jobASetVar
     env:
