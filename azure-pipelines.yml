@@ -102,12 +102,11 @@ jobs:
         targetType: inline
         script: |
             Install-Module -Name PSScriptAnalyzer -Force -ErrorAction Stop
-            $here = Split-Path -Parent $MyInvocation.MyCommand.Path
-            $here = Join-Path $here ".."
-            $scriptDir = Join-Path $here "script"
+            
+            $scriptDir = Join-Path "." "script"
             $file = Join-Path $scriptDir  "playground.ps1"
             Invoke-ScriptAnalyzer -Path $file -Severity Warning # -ExcludeRule PSAvoidUsingWriteHost
-            
+
     - task: PublishTestResults@2
       displayName: Publish tests results
       inputs:
