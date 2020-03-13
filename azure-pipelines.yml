@@ -11,14 +11,17 @@ jobs:
   variables:
     job_variable1: value_job1    # this is only available in job1
   steps:
-  - bash: echo $(global_variable)
-  - bash: echo $(job_variable1)
-  - bash: echo $JOB_VARIABLE1 # variables are available in the script environment too
+  - powershell: |
+      Write-Host "Global variable = $(global_variable)"
+      Write-Host "Job variable = $(job_variable1)"
+      Write-Host "Job variable = $(JOB_VARIABLE1)"
 
 - job: job2
+  dependsOn: [job1]
   variables:
     job_variable2: value_job2    # this is only available in job2
   steps:
-  - bash: echo $(global_variable)
-  - bash: echo $(job_variable2)
-  - bash: echo $GLOBAL_VARIABLE
+  - powershell: |
+      Write-Host "Global variable = $(global_variable)"
+      Write-Host "Job variable = $(job_variable2)"
+      Write-Host "Global variable = $(GLOBAL_VARIABLE)"
