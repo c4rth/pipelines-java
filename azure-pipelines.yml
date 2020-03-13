@@ -1,5 +1,5 @@
 variables:
-  global_variable: value    # this is available to all jobs
+  global_variable: value_global    # this is available to all jobs
 
 trigger:
 - master
@@ -7,7 +7,7 @@ trigger:
 jobs:
 - job: job1
   variables:
-    job_variable1: value1    # this is only available in job1
+    job_variable1: value_job1    # this is only available in job1
   steps:
   - bash: echo $(global_variable)
   - bash: echo $(job_variable1)
@@ -15,7 +15,7 @@ jobs:
 
 - job: job2
   variables:
-    job_variable2: value2    # this is only available in job2
+    job_variable2: value_job2    # this is only available in job2
   steps:
   - bash: echo $(global_variable)
   - bash: echo $(job_variable2)
