@@ -11,18 +11,17 @@ jobs:
   variables:
     job_variable1: value_job1    # this is only available in job1
   steps:
-  - pwsh: |
-      $PSVersionTable
-      Write-Host "pwsh"
-      Write-Host "Global variable = $(global_variable)"
-      Write-Host "Job variable = $(job_variable1)"
-      Write-Host "Job variable = $(JOB_VARIABLE1)"
   - powershell: |
       $PSVersionTable
       Write-Host "powershell"
       Write-Host "Global variable = $(global_variable)"
       Write-Host "Job variable = $(job_variable1)"
       Write-Host "Job variable = $(JOB_VARIABLE1)"
+      Write-Host "mysecret = $(mysecret)"
+      Write-Host "mysecret = $env:MY_MAPPED_ENV_VAR"
+      Write-Host "mysecret = $env:MYSECRET"
+    env:
+      MY_MAPPED_ENV_VAR: $(mySecret)
 
 - job: job2
   dependsOn: [job1]
