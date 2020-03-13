@@ -118,7 +118,7 @@ jobs:
                 $ScriptAnalyzerResultString = $ScriptAnalyzerResult | Out-String
                 Write-Warning $ScriptAnalyzerResultString
             }
-            Export-NUnitXml -ScriptAnalyzerResult $ScriptAnalyzerResult -Path $(Agent.WorkFolder)/ScriptAnalyzerResult.xml
+            Export-NUnitXml -ScriptAnalyzerResult $ScriptAnalyzerResult -Path $(Agent.WorkFolder)/ScriptAnalyzerResult.xml -Verbose
     
     - task: PublishTestResults@2
       displayName: Publish PSScriptAnalyzer tests results
