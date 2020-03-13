@@ -26,9 +26,9 @@ Function Export-NUnitXml {
         $MachineName = $env:COMPUTERNAME
         $Cwd = $pwd.Path
         $UserDomain = $env:USERDOMAIN
-        $OS = $(Agent.OS)
-        $Platform = $OS.Caption
-        $OSVersion = $OS.Version
+        # $OS = $(Agent.OS)
+        $Platform = "_OS.Caption"
+        $OSVersion = _OS.Version"
         $ClrVersion = $PSVersionTable.CLRVersion.ToString()
         $CurrentCulture = (Get-Culture).Name
         $UICulture = (Get-UICulture).Name
