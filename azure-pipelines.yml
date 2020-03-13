@@ -22,8 +22,14 @@ jobs:
       Write-Host "mysecret = $(mysecret)"
       Write-Host "mysecret = $env:MAPPED_SECRET"
       Write-Host "mysecret = $env:MYSECRET"
+      Write-Host "other_Secret = $(otherSecret)"
+      Write-Host "other_Secret = $env:MAPPED_OTHER_SECRET"
       Write-Host "otherSecret = $(otherSecret)"
-      Write-Host "otherSecret = $env:MAPPED_OTHER_SECRET"
+      if ($(mysecret) -eq $env:MAPPED_SECRET) {
+        Write-Host "mysecret == $ env:MAPPED_SECRET"
+      } else {
+        Write-Host "mysecret != $ env:MAPPED_SECRET"
+      }
     env:
       MAPPED_SECRET: $(mySecret)
       MAPPED_OTHER_SECRET: $(otherSecret)
