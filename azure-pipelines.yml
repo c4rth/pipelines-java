@@ -8,9 +8,9 @@ trigger:
 - master
 
 jobs:
-- job: job1
+- job: jobA
   variables:
-    job_variable1: value_job1    # this is only available in job1
+    job_variable1: value_jobA    # this is only available in jobA
   steps:
   - powershell: |
       $PSVersionTable
@@ -22,25 +22,26 @@ jobs:
       Write-Host "mysecret = $(mysecret)"
       Write-Host "mysecret = $env:MAPPED_SECRET"
       Write-Host "mysecret = $env:MYSECRET"
-      Write-Host "other_Secret = $(otherSecret)"
-      Write-Host "other_Secret = $env:MAPPED_OTHER_SECRET"
-      Write-Host "otherSecret = $(otherSecret)"
-      if ('$(global_variable)' -eq 'value_global-overwrite_1') {
-        Write-Host "global_variable == value_global-overwrite_1"
-      } else {
-        Write-Host "global_variable != value_global-overwrite_1"
-      }
       Write-Host "global_variable "  (('$(global_variable)' -eq 'value_global-overwrite_1') ? '==' : "!=") + " value_global-overwrite_1"
+
+      echo "##vso[task.setvariable variable=myOutputVar;isOutput=true]this is the value"
+      Write-Host "myOutputVar = $(myOutputVar)"
+      Write-Host "myOutputVar = $env:myOutputVar"
+      Write-Host "myOutputVar = $env:MYOUTPUTVAR"
+    name:
+      jobASetVar
     env:
       MAPPED_SECRET: $(mySecret)
       MAPPED_OTHER_SECRET: $(otherSecret)
 
-- job: job2
-  dependsOn: [job1]
+- job: jobB
+  dependsOn: [jobA]
   variables:
-    job_variable2: value_job2    # this is only available in job2
+    job_variable2: value_jobB
+    myVarFromJobA: $[ dependencies.jobA.outputs['jobASetVar.myOutputVar'] ]
   steps:
   - powershell: |
       Write-Host "Global variable = $(global_variable)"
       Write-Host "Job variable = $(job_variable2)"
       Write-Host "Global variable = $(GLOBAL_VARIABLE)"
+      Write-Host "myOutputVar from jobA = $(myVarFromJobA)"
