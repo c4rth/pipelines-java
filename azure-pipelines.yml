@@ -52,15 +52,15 @@ jobs:
   dependsOn: [jobB]
   steps:
   - powershell: |
-      Write-Host "System.AccessToken : $env:SYSTEM_ACCESSTOKEN"
-      Write-Host "Agent : $env:AGENT"
+      Write-Host "Agent.BuildDirectory : $env:AGENT_BUILD_DIRECTORY"
+      Write-Host "Agent.HomeDirectory : $env:AGENT_HOME_DIRECTORY"
       Write-Host "Build : $env:BUILD"
       Write-Host "Pipeline : $env:PIPELINE"
       Write-Host "Environment : $env:ENVIRONMENT"
       Write-Host "System : $env:SYSTEM"
     env:
-      SYSTEM_ACCESSTOKEN: $(System.AccessToken)
-      AGENT: $(Agent)
+      AGENT_BUILD_DIRECTORY: $(Agent.BuildDirectory)
+      AGENT_HOME_DIRECTORY: $(Agent.HomeDirectory)
       BUILD: $(Build)
       PIPELINE: $(Pipeline)
       ENVIRONMENT: $(Environment)
