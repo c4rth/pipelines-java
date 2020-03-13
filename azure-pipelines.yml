@@ -54,14 +54,16 @@ jobs:
   - powershell: |
       Write-Host "Agent.BuildDirectory : $env:AGENT_BUILD_DIRECTORY"
       Write-Host "Agent.HomeDirectory : $env:AGENT_HOME_DIRECTORY"
-      Write-Host "Build : $env:BUILD"
-      Write-Host "Pipeline : $env:PIPELINE"
-      Write-Host "Environment : $env:ENVIRONMENT"
-      Write-Host "System : $env:SYSTEM"
+      Write-Host "Build.BuildId : $env:BUILD_ID"
+      Write-Host "Build.BuildNumber : $env:BUILD_NUMBER"
+      Write-Host "Build.SourcesDirectory : $env:BUILD_SOURCE"
+      Write-Host "System.JobId : $env:SYSTEM_JOB_ID"
+      Write-Host "System.JobName : $env:SYSTEM_JOB_NAME"
     env:
       AGENT_BUILD_DIRECTORY: $(Agent.BuildDirectory)
       AGENT_HOME_DIRECTORY: $(Agent.HomeDirectory)
-      BUILD: $(Build)
-      PIPELINE: $(Pipeline)
-      ENVIRONMENT: $(Environment)
-      SYSTEM: $(System)
+      BUILD_ID: $(Build.BuildId)
+      BUILD_NUMBER: $(Build.BuildNumber)
+      BUILD_SOURCE: $(Build.SourcesDirectory)
+      SYSTEM_JOB_ID: $(System.JobId)
+      SYSTEM_JOB_NAME: $(System.JobName)
