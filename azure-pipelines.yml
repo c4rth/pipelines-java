@@ -76,12 +76,28 @@ jobs:
 
 - job: jobD
   dependsOn: [jobC]
+  variables:
+    testResultsFile: "$(Agent.WorkFolder)/testresults.xml"
   steps:
-  - powershell: |
-      Install-Module -Name PSScriptAnalyzer -Force -ErrorAction Stop
-      Install-Module -Name Pester -Force -ErrorAction Stop
+    - task: PowerShell@2
+      displayName: Run Pester...
+      inputs:
+        targetType: inline
+        script: |
+            Install-Module -Name PSScriptAnalyzer -Force -ErrorAction Stop
+            Install-Module -Name Pester -Force -ErrorAction Stop
 
-      Write-Host "Global variable = $(global_variable)"
-      Write-Host "Job variable = $(job_variable2)"
-      Write-Host "Global variable = $(GLOBAL_VARIABLE)"
-      Write-Host "myOutputVar from jobA = $(myVarFromJobA)"
+            $PesterSettings = @{
+              Script = "$(System.DefaultWorkingDirectory)/tests/*.tests.ps1"
+              OutputFile = $(testResultsFile)
+              OutputFormat = "NUnitXml"
+              EnableExit = $true
+              Verbose = $true
+            }
+
+            Invoke-Pester @PesterSettings
+    - task: PublishTestResults@2
+      displayName: Publish tests results
+      inputs:
+        testResultsFormat: NUnit
+        testResultsFiles: $(testResultsFile)
