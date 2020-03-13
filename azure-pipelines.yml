@@ -73,3 +73,15 @@ jobs:
       BUILD_SOURCE: $(Build.SourcesDirectory)
       SYSTEM_JOB_ID: $(System.JobId)
       SYSTEM_JOB_NAME: $(System.JobName)
+
+- job: jobD
+  dependsOn: [jobC]
+  steps:
+  - powershell: |
+      Install-Module -Name PSScriptAnalyzer -Force -ErrorAction Stop
+      Install-Module -Name Pester -Force -ErrorAction Stop
+
+      Write-Host "Global variable = $(global_variable)"
+      Write-Host "Job variable = $(job_variable2)"
+      Write-Host "Global variable = $(GLOBAL_VARIABLE)"
+      Write-Host "myOutputVar from jobA = $(myVarFromJobA)"
