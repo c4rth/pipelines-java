@@ -2,25 +2,16 @@ $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $here = Join-Path $here ".."
 $scriptDir = Join-Path $here "script"
 
+# Import-Module ".\Export-NUnitXml.psm1" -Force
+
 Describe 'PSScriptAnalyzer analysis' {    
     $file = Join-Path $scriptDir  "playground.ps1"
 
-    Invoke-ScriptAnalyzer -Path $file -Severity Warning -ExcludeRule PSAvoidUsingWriteHost
-    # $ScriptAnalyzerResults = Invoke-ScriptAnalyzer -Path $file -Severity Warning
-    # It 'Should not return any violation' {
-    #     $ScriptAnalyzerResults | Should BeNullOrEmpty
-    # }
-}  
-
-Describe 'PSScriptAnalyzer analysis rules' {    
-    $file = Join-Path $scriptDir  "playground.ps1"
-    $ScriptAnalyzerRules = Get-ScriptAnalyzerRule -Name "PSAvoid*"
-
-    Foreach ( $Rule in $ScriptAnalyzerRules ) {
-        if ($Rule.RuleName -ne "PSAvoidUsingWriteHost") {
-            It "Should not return any violation for the rule : $($Rule.RuleName)" {
-                Invoke-ScriptAnalyzer -Path $file -IncludeRule $Rule.RuleName | Should BeNullOrEmpty
-            }
-        }
+    $ScriptAnalyzerResult = Invoke-ScriptAnalyzer -Path $file -Severity Warning # -ExcludeRule PSAvoidUsingWriteHost
+    If ( $ScriptAnalyzerResult ) {  
+        $ScriptAnalyzerResultString = $ScriptAnalyzerResult | Out-String
+        Write-Warning $ScriptAnalyzerResultString
     }
-}
+    # Export-NUnitXml -ScriptAnalyzerResult $ScriptAnalyzerResult -Path '.\ScriptAnalyzerResult.xml'
+
+}  
