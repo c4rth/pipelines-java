@@ -1,8 +1,10 @@
 variables:
 - group: VariableGroup
-- template: variables.yml
 - name: global_variable
   value: value_global-overwrite_1 
+- name: directory_include
+  value: ./include
+- template: $(directory_include)/variables.yml
 
 trigger:
 - master
@@ -59,6 +61,8 @@ jobs:
       Write-Host "Build.SourcesDirectory : $env:BUILD_SOURCE"
       Write-Host "System.JobId : $env:SYSTEM_JOB_ID"
       Write-Host "System.JobName : $env:SYSTEM_JOB_NAME"
+      Write-Host "System.JobName : $(System.JobName)"
+      Write-Host "Build.Repository.LocalPath : $(Build.Repository.LocalPath)"
 
       Get-ChildItem -Path $env:BUILD_SOURCE -Recurse
     env:
