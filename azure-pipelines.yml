@@ -1,4 +1,5 @@
 variables:
+- group: VariableGroup
 - template: variables.yml
 - name: global_variable
   value: value_global-overwrite_1 
