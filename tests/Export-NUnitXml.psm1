@@ -104,5 +104,8 @@ Function Export-NUnitXml {
         Throw "There was an problem when attempting to cast the output to XML : $($_.Exception.Message)"
     }
 
+    Write-Host "OutputXml " $OutputXml
+    Write-Host "Path " $Path
+
     $OutputXml | Out-File -FilePath $Path -Encoding utf8 -Force
 }
