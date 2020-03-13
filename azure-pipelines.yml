@@ -25,12 +25,12 @@ jobs:
       Write-Host "other_Secret = $(otherSecret)"
       Write-Host "other_Secret = $env:MAPPED_OTHER_SECRET"
       Write-Host "otherSecret = $(otherSecret)"
-      if ('$(mysecret)' -eq '$env:MAPPED_SECRET') {
-        Write-Host "mysecret == $ env:MAPPED_SECRET"
+      if ('$(global_variable)' -eq 'value_global-overwrite_1') {
+        Write-Host "global_variable == value_global-overwrite_1"
       } else {
-        Write-Host "mysecret != $ env:MAPPED_SECRET"
+        Write-Host "global_variable != value_global-overwrite_1"
       }
-      Write-Host "mysecret "  (('$(mysecret)' -eq '$env:MAPPED_SECRET') ? '==' : "!=") + " $ env:MAPPED_SECRET"
+      Write-Host "global_variable "  (('$(global_variable)' -eq 'value_global-overwrite_1') ? '==' : "!=") + " value_global-overwrite_1"
     env:
       MAPPED_SECRET: $(mySecret)
       MAPPED_OTHER_SECRET: $(otherSecret)
