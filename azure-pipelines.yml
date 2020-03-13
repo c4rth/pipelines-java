@@ -4,7 +4,7 @@ variables:
   value: value_global-overwrite_1 
 - name: directory_include
   value: ./include
-- template: $(directory_include)/variables.yml
+- template: ${{ variables.directory_include }}/variables.yml
 
 trigger:
 - master
