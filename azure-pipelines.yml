@@ -96,19 +96,32 @@ jobs:
             }
 
             Invoke-Pester @PesterSettings
+    
+    - task: PublishTestResults@2
+      displayName: Publish Pester tests results
+      inputs:
+        testResultsFormat: NUnit
+        testResultsFiles: $(testResultsFile)
+
     - task: PowerShell@2
       displayName: Run PSScriptAnalyzer...
       inputs:
         targetType: inline
         script: |
             Install-Module -Name PSScriptAnalyzer -Force -ErrorAction Stop
-            
+            Import-Module 'Export-NUnitXml.psm1' -Force
+
             $scriptDir = Join-Path "." "script"
             $file = Join-Path $scriptDir  "playground.ps1"
-            Invoke-ScriptAnalyzer -Path $file -Severity Warning # -ExcludeRule PSAvoidUsingWriteHost
-
+            $ScriptAnalyzerResult = Invoke-ScriptAnalyzer -Path $file -Severity Warning # -ExcludeRule PSAvoidUsingWriteHost
+            If ( $ScriptAnalyzerResult ) {  
+                $ScriptAnalyzerResultString = $ScriptAnalyzerResult | Out-String
+                Write-Warning $ScriptAnalyzerResultString
+            }
+            Export-NUnitXml -ScriptAnalyzerResult $ScriptAnalyzerResult -Path '$(Agent.WorkFolder)/ScriptAnalyzerResult.xml'
+    
     - task: PublishTestResults@2
-      displayName: Publish tests results
+      displayName: Publish PSScriptAnalyzer tests results
       inputs:
         testResultsFormat: NUnit
-        testResultsFiles: $(testResultsFile)
+        testResultsFiles: $(Agent.WorkFolder)/ScriptAnalyzerResult.xml
