@@ -9,73 +9,73 @@ variables:
 trigger:
 - master
 
+
 jobs:
-- job: jobA
-  variables:
-    job_variable1: value_jobA    # this is only available in jobA
-  steps:
-  - powershell: |
-      $PSVersionTable
-      Write-Host "powershell"
-      Write-Host "Global variable from group = $(global_variable1)"
-      Write-Host "Global variable = $(global_variable)"
-      Write-Host "Job variable = $(job_variable1)"
-      Write-Host "Job variable = $(JOB_VARIABLE1)"
-      Write-Host "mysecret = $(mysecret)"
-      Write-Host "mysecret = $env:MAPPED_SECRET"
-      Write-Host "mysecret = $env:MYSECRET"
-      Write-Host "global_variable "  (('$(global_variable)' -eq 'value_global-overwrite_1') ? '==' : "!=") + " value_global-overwrite_1"
+# - job: jobA
+#   variables:
+#     job_variable1: value_jobA    
+#   steps:
+#   - powershell: |
+#       $PSVersionTable
+#       Write-Host "powershell"
+#       Write-Host "Global variable from group = $(global_variable1)"
+#       Write-Host "Global variable = $(global_variable)"
+#       Write-Host "Job variable = $(job_variable1)"
+#       Write-Host "Job variable = $(JOB_VARIABLE1)"
+#       Write-Host "mysecret = $(mysecret)"
+#       Write-Host "mysecret = $env:MAPPED_SECRET"
+#       Write-Host "mysecret = $env:MYSECRET"
+#       Write-Host "global_variable "  (('$(global_variable)' -eq 'value_global-overwrite_1') ? '==' : "!=") + " value_global-overwrite_1"
 
-      echo "##vso[task.setvariable variable=myOutputVar;isOutput=true]this is the value"
-      Write-Host "myOutputVar = $jobASetVar:myOutputVar"
-      Write-Host "myOutputVar = $env:jobASetVar:MYOUTPUTVAR"
-      Write-Host "myOutputVar = $env:jobASetVar:myOutputVar"
-      Write-Host "myOutputVar = $env:jobASetVar:MYOUTPUTVAR"
-      Write-Host $env
-    name:
-      jobASetVar
-    env:
-      MAPPED_SECRET: $(mySecret)
-      MAPPED_OTHER_SECRET: $(otherSecret)
+#       echo "##vso[task.setvariable variable=myOutputVar;isOutput=true]this is the value"
+#       Write-Host "myOutputVar = $jobASetVar:myOutputVar"
+#       Write-Host "myOutputVar = $env:jobASetVar:MYOUTPUTVAR"
+#       Write-Host "myOutputVar = $env:jobASetVar:myOutputVar"
+#       Write-Host "myOutputVar = $env:jobASetVar:MYOUTPUTVAR"
+#       Write-Host $env
+#     name:
+#       jobASetVar
+#     env:
+#       MAPPED_SECRET: $(mySecret)
+#       MAPPED_OTHER_SECRET: $(otherSecret)
 
-- job: jobB
-  dependsOn: [jobA]
-  variables:
-    job_variable2: value_jobB
-    myVarFromJobA: $[ dependencies.jobA.outputs['jobASetVar.myOutputVar'] ]
-  steps:
-  - powershell: |
-      Write-Host "Global variable = $(global_variable)"
-      Write-Host "Job variable = $(job_variable2)"
-      Write-Host "Global variable = $(GLOBAL_VARIABLE)"
-      Write-Host "myOutputVar from jobA = $(myVarFromJobA)"
+# - job: jobB
+#   dependsOn: [jobA]
+#   variables:
+#     job_variable2: value_jobB
+#     myVarFromJobA: $[ dependencies.jobA.outputs['jobASetVar.myOutputVar'] ]
+#   steps:
+#   - powershell: |
+#       Write-Host "Global variable = $(global_variable)"
+#       Write-Host "Job variable = $(job_variable2)"
+#       Write-Host "Global variable = $(GLOBAL_VARIABLE)"
+#       Write-Host "myOutputVar from jobA = $(myVarFromJobA)"
 
-- job: jobC
-  dependsOn: [jobB]
-  steps:
-  - powershell: |
-      Write-Host "Agent.BuildDirectory : $env:AGENT_BUILD_DIRECTORY"
-      Write-Host "Agent.HomeDirectory : $env:AGENT_HOME_DIRECTORY"
-      Write-Host "Build.BuildId : $env:BUILD_ID"
-      Write-Host "Build.BuildNumber : $env:BUILD_NUMBER"
-      Write-Host "Build.SourcesDirectory : $env:BUILD_SOURCE"
-      Write-Host "System.JobId : $env:SYSTEM_JOB_ID"
-      Write-Host "System.JobName : $env:SYSTEM_JOB_NAME"
-      Write-Host "System.JobName : $(System.JobName)"
-      Write-Host "Build.Repository.LocalPath : $(Build.Repository.LocalPath)"
+# - job: jobC
+#   dependsOn: [jobB]
+#   steps:
+#   - powershell: |
+#       Write-Host "Agent.BuildDirectory : $env:AGENT_BUILD_DIRECTORY"
+#       Write-Host "Agent.HomeDirectory : $env:AGENT_HOME_DIRECTORY"
+#       Write-Host "Build.BuildId : $env:BUILD_ID"
+#       Write-Host "Build.BuildNumber : $env:BUILD_NUMBER"
+#       Write-Host "Build.SourcesDirectory : $env:BUILD_SOURCE"
+#       Write-Host "System.JobId : $env:SYSTEM_JOB_ID"
+#       Write-Host "System.JobName : $env:SYSTEM_JOB_NAME"
+#       Write-Host "System.JobName : $(System.JobName)"
+#       Write-Host "Build.Repository.LocalPath : $(Build.Repository.LocalPath)"
 
-      Get-ChildItem -Path $env:BUILD_SOURCE -Recurse
-    env:
-      AGENT_BUILD_DIRECTORY: $(Agent.BuildDirectory)
-      AGENT_HOME_DIRECTORY: $(Agent.HomeDirectory)
-      BUILD_ID: $(Build.BuildId)
-      BUILD_NUMBER: $(Build.BuildNumber)
-      BUILD_SOURCE: $(Build.SourcesDirectory)
-      SYSTEM_JOB_ID: $(System.JobId)
-      SYSTEM_JOB_NAME: $(System.JobName)
+#       Get-ChildItem -Path $env:BUILD_SOURCE -Recurse
+#     env:
+#       AGENT_BUILD_DIRECTORY: $(Agent.BuildDirectory)
+#       AGENT_HOME_DIRECTORY: $(Agent.HomeDirectory)
+#       BUILD_ID: $(Build.BuildId)
+#       BUILD_NUMBER: $(Build.BuildNumber)
+#       BUILD_SOURCE: $(Build.SourcesDirectory)
+#       SYSTEM_JOB_ID: $(System.JobId)
+#       SYSTEM_JOB_NAME: $(System.JobName)
 
 - job: jobD
-  dependsOn: [jobC]
   variables:
     testResultsFile: "$(Agent.WorkFolder)/testresults.xml"
   steps:
