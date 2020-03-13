@@ -89,7 +89,7 @@ jobs:
 
             $PesterSettings = @{
               Script = "$(System.DefaultWorkingDirectory)/tests/*.tests.ps1"
-              OutputFile = $(testResultsFile)
+              OutputFile = "$(testResultsFile)"
               OutputFormat = "NUnitXml"
               EnableExit = $true
               Verbose = $true
