@@ -118,7 +118,6 @@ jobs:
                 $ScriptAnalyzerResultString = $ScriptAnalyzerResult | Out-String
                 Write-Warning $ScriptAnalyzerResultString
             }
-            Write-Host 'result :' $ScriptAnalyzerResult
             Export-NUnitXml -ScriptAnalyzerResult $ScriptAnalyzerResult -Path '$(Agent.WorkFolder)/ScriptAnalyzerResult.xml'
     
     - task: PublishTestResults@2

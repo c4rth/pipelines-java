@@ -1,5 +1,5 @@
 Function Export-NUnitXml {
-<#
+    <#
 .SYNOPSIS
     Takes results from PSScriptAnalyzer and exports them as a Pester test results file (NUnitXml format).
 
@@ -9,11 +9,11 @@ Function Export-NUnitXml {
 #>
     [CmdletBinding()]
     Param (
-        [Parameter(Mandatory, Position=0)]
+        [Parameter(Mandatory, Position = 0)]
         [AllowNull()]
         [Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord[]]$ScriptAnalyzerResult,
 
-        [Parameter(Mandatory, Position=1)]
+        [Parameter(Mandatory, Position = 1)]
         [string]$Path
     )
 
@@ -34,11 +34,11 @@ Function Export-NUnitXml {
     $UICulture = (Get-UICulture).Name
 
     Switch ($ScriptAnalyzerResult) {
-        $Null { $TestResult = 'Success'; $TestSuccess = 'True'; Break}
-        Default { $TestResult = 'Failure'; $TestSuccess = 'False'}
+        $Null { $TestResult = 'Success'; $TestSuccess = 'True'; Break }
+        Default { $TestResult = 'Failure'; $TestSuccess = 'False' }
     }
 
-    $Header = @"
+        $Header = @"
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <test-results xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="nunit_schema_2.5.xsd" name="PSScriptAnalyzer" total="$TotalNumber" errors="0" failures="$FailedNumber" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="$FormattedDate" time="$FormattedTime">
     <environment user="$User" machine-name="$MachineName" cwd="$Cwd" user-domain="$UserDomain" platform="$Platform" nunit-version="2.5.8.0" os-version="$OSVersion" clr-version="$ClrVersion" />
