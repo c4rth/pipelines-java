@@ -47,3 +47,21 @@ jobs:
       Write-Host "Job variable = $(job_variable2)"
       Write-Host "Global variable = $(GLOBAL_VARIABLE)"
       Write-Host "myOutputVar from jobA = $(myVarFromJobA)"
+
+- job: jobC
+  dependsOn: [jobB]
+  steps:
+  - powershell: |
+      Write-Host "System.AccessToken : $env:SYSTEM_ACCESSTOKEN"
+      Write-Host "Agent : $env:AGENT"
+      Write-Host "Build : $env:BUILD"
+      Write-Host "Pipeline : $env:PIPELINE"
+      Write-Host "Environment : $env:ENVIRONMENT"
+      Write-Host "System : $env:SYSTEM"
+    env:
+      SYSTEM_ACCESSTOKEN: $(System.AccessToken)
+      AGENT: $(Agent)
+      BUILD: $(Build)
+      PIPELINE: $(Pipeline)
+      ENVIRONMENT: $(Environment)
+      SYSTEM: $(System)
