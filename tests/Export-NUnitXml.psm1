@@ -26,7 +26,7 @@ Function Export-NUnitXml {
         $MachineName = $env:COMPUTERNAME
         $Cwd = $pwd.Path
         $UserDomain = $env:USERDOMAIN
-        $OS = Get-CimInstance -ClassName Win32_OperatingSystem
+        $OS = $(Agent.OS)
         $Platform = $OS.Caption
         $OSVersion = $OS.Version
         $ClrVersion = $PSVersionTable.CLRVersion.ToString()
