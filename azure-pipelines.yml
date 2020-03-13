@@ -1,5 +1,7 @@
 variables:
-  global_variable: value_global    # this is available to all jobs
+- template: variables.yml
+- name: global_variable1
+  value: value_global-overwrite_1 
 
 trigger:
 - master

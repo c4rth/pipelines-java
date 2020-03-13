@@ -1,0 +1,2 @@
+variables:
+  global_variable1: value_global    # this is available to all jobs
