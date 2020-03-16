@@ -12,7 +12,7 @@ jobs:
     - template: simple-param-2.yml
       parameters:
         yesNo: true
-    - template: simple-param.yml
+    - template: simple-param-2.yml
       parameters:
         yesNo: $${{ parameters.yesNo }}
         title: $${{ parameters.title }}

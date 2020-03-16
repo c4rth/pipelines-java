@@ -1,0 +1,10 @@
+jobs:
+  - job: Build
+    steps:
+      - pwsh: |
+          Write-Host "Build"
+  
+  - job: Test
+    steps:
+      - pwsh: |
+          Write-Host "Test"
