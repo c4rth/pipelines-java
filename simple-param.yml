@@ -4,7 +4,7 @@ parameters:
   default: false
 - name: title
   type: string
-  defaul: "default name"
+  default: "default name"
 
 steps:
     - pwsh: |
