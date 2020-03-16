@@ -13,7 +13,7 @@ jobs:
 - job: checkout
   steps:
   - checkout: self
-    fetchDept: 1
+    fetchDepth: 1
 - job: jobA
   dependsOn: [checkout]
   variables:
