@@ -13,10 +13,12 @@ trigger:
     - master
 
 jobs:
+
 - job: checkout
   steps:
   - checkout: self
     fetchDepth: 1
+
 - job: jobA
   dependsOn: [checkout]
   variables:
