@@ -21,7 +21,6 @@ jobs:
     title: "This is the ROOT title"
 
 - job: jobB
-  dependsOn: [jobA]
   steps:
   - template: simple-param-2.yml
     parameters:
