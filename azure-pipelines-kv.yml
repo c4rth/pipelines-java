@@ -16,6 +16,5 @@ jobs:
   
   - pwsh: |
       Write-Host "Values from Keyvault kv-carth"
-      Write-Host $(key-1)
-      Write-Host $(secret-1)
+      Write-Host $(secret2)
   
