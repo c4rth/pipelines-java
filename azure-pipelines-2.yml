@@ -1,0 +1,55 @@
+variables:
+- group: VariableGroup
+- name: global_variable
+  value: value_global-overwrite_1 
+- name: directory_include
+  value: ./include
+- template: ${{ variables.directory_include }}/variables.yml
+
+trigger:
+- master
+
+jobs:
+- job: checkout
+  steps:
+  - checkout: self
+    fetchDept: 1
+- job: jobA
+  dependsOn: [checkout]
+  variables:
+    job_variable1: value_jobA    
+  steps:
+  - powershell: |
+      $PSVersionTable
+      Write-Host "powershell"
+
+- job: jobB
+  dependsOn: [jobA]
+  variables:
+    job_variable2: value_jobB
+  steps:
+  - powershell: |
+      Write-Host "Global variable = $(global_variable)"
+      Write-Host "Job variable = $(job_variable2)"
+
+- job: jobC
+  dependsOn: [jobB]
+  steps:
+  - powershell: |
+      Write-Host "Agent.BuildDirectory : $env:AGENT_BUILD_DIRECTORY"
+      Write-Host "Agent.HomeDirectory : $env:AGENT_HOME_DIRECTORY"
+      Write-Host "Build.BuildId : $env:BUILD_ID"
+      Write-Host "Build.BuildNumber : $env:BUILD_NUMBER"
+      Write-Host "Build.SourcesDirectory : $env:BUILD_SOURCE"
+      Write-Host "System.JobId : $env:SYSTEM_JOB_ID"
+      Write-Host "System.JobName : $env:SYSTEM_JOB_NAME"
+      Write-Host "System.JobName : $(System.JobName)"
+      Write-Host "Build.Repository.LocalPath : $(Build.Repository.LocalPath)"
+    env:
+      AGENT_BUILD_DIRECTORY: $(Agent.BuildDirectory)
+      AGENT_HOME_DIRECTORY: $(Agent.HomeDirectory)
+      BUILD_ID: $(Build.BuildId)
+      BUILD_NUMBER: $(Build.BuildNumber)
+      BUILD_SOURCE: $(Build.SourcesDirectory)
+      SYSTEM_JOB_ID: $(System.JobId)
+      SYSTEM_JOB_NAME: $(System.JobName)
