@@ -1,2 +1,19 @@
-jobs:
-- template: templates/jobs.yml
+trigger:
+  batch: true
+  branches:
+    include:
+    - master
+
+stages:
+- stage: A
+  jobs:
+  - template: simple-param.yml
+    parameters:
+      title: "This is the ROOT title"
+      
+- stage: B
+  jobs:
+    - template: simple-param.yml
+      parameters:
+        yesNo: true
+        title: "This is the another title"  
