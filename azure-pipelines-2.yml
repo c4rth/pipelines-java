@@ -14,16 +14,13 @@ trigger:
 
 jobs:
 
-- job: checkout
-  steps:
-  - checkout: self
-    fetchDepth: 1
-
 - job: jobA
   dependsOn: [checkout]
   variables:
     job_variable1: value_jobA    
   steps:
+  - checkout: self
+    fetchDepth: 1
   - powershell: |
       $PSVersionTable
       Write-Host "powershell"
@@ -33,6 +30,8 @@ jobs:
   variables:
     job_variable2: value_jobB
   steps:
+  - checkout: self
+    fetchDepth: 1
   - powershell: |
       Write-Host "Global variable = $(global_variable)"
       Write-Host "Job variable = $(job_variable2)"
@@ -40,6 +39,8 @@ jobs:
 - job: jobC
   dependsOn: [jobB]
   steps:
+  - checkout: self
+    fetchDepth: 1
   - powershell: |
       Write-Host "Agent.BuildDirectory : $env:AGENT_BUILD_DIRECTORY"
       Write-Host "Agent.HomeDirectory : $env:AGENT_HOME_DIRECTORY"
@@ -50,6 +51,7 @@ jobs:
       Write-Host "System.JobName : $env:SYSTEM_JOB_NAME"
       Write-Host "System.JobName : $(System.JobName)"
       Write-Host "Build.Repository.LocalPath : $(Build.Repository.LocalPath)"
+    displayName: 'This is the displayName of the PowerShell step of JobC'
     env:
       AGENT_BUILD_DIRECTORY: $(Agent.BuildDirectory)
       AGENT_HOME_DIRECTORY: $(Agent.HomeDirectory)
