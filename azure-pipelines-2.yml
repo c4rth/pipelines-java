@@ -6,6 +6,9 @@ variables:
   value: ./include
 - template: ${{ variables.directory_include }}/variables.yml
 
+pool: 
+  name: carth-pool
+
 trigger:
   batch: true
   branches:
@@ -14,6 +17,10 @@ trigger:
 
 jobs:
 - template: simple-param.yml
+  parameters:
+    title: "This is the ROOT title"
+    pool:
+      name: carth-pool
 
 - job: jobB
   dependsOn: [jobA]
