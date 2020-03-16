@@ -6,9 +6,6 @@ variables:
   value: ./include
 - template: ${{ variables.directory_include }}/variables.yml
 
-pool: 
-  name: carth-pool
-
 trigger:
   batch: true
   branches:
