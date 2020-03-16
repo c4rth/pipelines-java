@@ -27,4 +27,4 @@ jobs:
   - template: simple-param.yml
     parameters:
       yesNo: false
-      title: "This is a title"
+      title: "This is the root title"

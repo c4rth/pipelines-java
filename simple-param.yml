@@ -6,8 +6,13 @@ parameters:
   type: string
   default: "default name"
 
-steps:
-    - pwsh: |
-        Write-Host ${{ parameters.yesNo }}
-        Write-Host ${{ parameters.title }}
-      displayName: "Simple param - ${{ parameters.title }} - ${{ parameters.yesNo }}"
+jobs:
+- job:
+  steps:
+    - template: simple-param-2.yml
+      parameters:
+        yesNo: true
+    - template: simple-param.yml
+      parameters:
+        yesNo: $${{ parameters.yesNo }}
+        title: $${{ parameters.title }}

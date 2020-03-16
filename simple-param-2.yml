@@ -1,0 +1,13 @@
+parameters:
+- name: yesNo
+  type: boolean
+  default: false
+- name: title
+  type: string
+  default: "default name"
+
+steps:
+    - pwsh: |
+        Write-Host ${{ parameters.yesNo }}
+        Write-Host ${{ parameters.title }}
+      displayName: "Simple param - ${{ parameters.title }} - ${{ parameters.yesNo }}"
