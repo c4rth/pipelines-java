@@ -15,7 +15,6 @@ trigger:
 jobs:
 
 - job: jobA
-  dependsOn: [checkout]
   variables:
     job_variable1: value_jobA    
   steps:
