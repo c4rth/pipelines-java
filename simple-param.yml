@@ -14,5 +14,5 @@ jobs:
         yesNo: true
     - template: simple-param-2.yml
       parameters:
-        yesNo: $${{ parameters.yesNo }}
-        title: $${{ parameters.title }}
+        yesNo: ${{ parameters.yesNo }}
+        title: ${{ parameters.title }}
