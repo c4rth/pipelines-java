@@ -17,15 +17,16 @@ jobs:
 - job: jobA   
   steps:
   - template: simple-param.yml
-  displayName: "Simple param - default"
+    displayName: "Simple param - default"
 
 - job: jobB
   dependsOn: [jobA]
-  displayName: "Simple param"
   steps:
   - template: simple-param.yml
+    displayName: "Simple param - true"
     parameters:
       yesNo: true
   - template: simple-param.yml
+    displayName: "Simple param - false"
     parameters:
       yesNo: false
