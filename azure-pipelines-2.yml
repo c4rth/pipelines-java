@@ -18,8 +18,6 @@ jobs:
   variables:
     job_variable1: value_jobA    
   steps:
-  - checkout: self
-    fetchDepth: 1
   - powershell: |
       $PSVersionTable
       Write-Host "powershell"
@@ -29,8 +27,6 @@ jobs:
   variables:
     job_variable2: value_jobB
   steps:
-  - checkout: self
-    fetchDepth: 1
   - powershell: |
       Write-Host "Global variable = $(global_variable)"
       Write-Host "Job variable = $(job_variable2)"
@@ -38,8 +34,6 @@ jobs:
 - job: jobC
   dependsOn: [jobB]
   steps:
-  - checkout: self
-    fetchDepth: 1
   - powershell: |
       Write-Host "Agent.BuildDirectory : $env:AGENT_BUILD_DIRECTORY"
       Write-Host "Agent.HomeDirectory : $env:AGENT_HOME_DIRECTORY"
