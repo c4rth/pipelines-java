@@ -1,7 +1,13 @@
 parameters:
-- name: yesNo # name of the parameter; required
-  type: boolean # data type of the parameter; required
+- name: yesNo
+  type: boolean
   default: false
+- name: title
+  type: string
+  defaul: "default name"
 
 steps:
-    - script: echo ${{ parameters.yesNo }}
+    - pwsh: |
+        Write-Host ${{ parameters.yesNo }}
+        Write-Host ${{ parameters.title }}
+      displayName: "Simple param - ${{ parameters.title }} - ${{ parameters.yesNo }}"
