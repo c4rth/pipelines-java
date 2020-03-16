@@ -19,8 +19,6 @@ jobs:
 - template: simple-param.yml
   parameters:
     title: "This is the ROOT title"
-    pool:
-      name: carth-pool
 
 - job: jobB
   dependsOn: [jobA]
