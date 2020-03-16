@@ -14,42 +14,18 @@ trigger:
 
 jobs:
 
-- job: jobA
-  variables:
-    job_variable1: value_jobA    
+- job: jobA   
   steps:
-  - powershell: |
-      $PSVersionTable
-      Write-Host "powershell"
+  - template: simple-param.yml
+  displayName: "Simple param - default"
 
 - job: jobB
   dependsOn: [jobA]
-  variables:
-    job_variable2: value_jobB
+  displayName: "Simple param"
   steps:
-  - powershell: |
-      Write-Host "Global variable = $(global_variable)"
-      Write-Host "Job variable = $(job_variable2)"
-
-- job: jobC
-  dependsOn: [jobB]
-  steps:
-  - powershell: |
-      Write-Host "Agent.BuildDirectory : $env:AGENT_BUILD_DIRECTORY"
-      Write-Host "Agent.HomeDirectory : $env:AGENT_HOME_DIRECTORY"
-      Write-Host "Build.BuildId : $env:BUILD_ID"
-      Write-Host "Build.BuildNumber : $env:BUILD_NUMBER"
-      Write-Host "Build.SourcesDirectory : $env:BUILD_SOURCE"
-      Write-Host "System.JobId : $env:SYSTEM_JOB_ID"
-      Write-Host "System.JobName : $env:SYSTEM_JOB_NAME"
-      Write-Host "System.JobName : $(System.JobName)"
-      Write-Host "Build.Repository.LocalPath : $(Build.Repository.LocalPath)"
-    displayName: 'This is the displayName of the PowerShell step of JobC'
-    env:
-      AGENT_BUILD_DIRECTORY: $(Agent.BuildDirectory)
-      AGENT_HOME_DIRECTORY: $(Agent.HomeDirectory)
-      BUILD_ID: $(Build.BuildId)
-      BUILD_NUMBER: $(Build.BuildNumber)
-      BUILD_SOURCE: $(Build.SourcesDirectory)
-      SYSTEM_JOB_ID: $(System.JobId)
-      SYSTEM_JOB_NAME: $(System.JobName)
+  - template: simple-param.yml
+    parameters:
+      yesNo: true
+  - template: simple-param.yml
+    parameters:
+      yesNo: false
