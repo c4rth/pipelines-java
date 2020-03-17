@@ -6,18 +6,10 @@ trigger:
 
 
 jobs:
-- job: Keyvault
+- job: RunCustomTask
+  pool: 
+    vmImage: vs2017-win2016
   steps:
-#  - task: AzureKeyVault@1
-#    inputs:
-#        azureSubscription: 'rg-playground-carth-service-connection'
-#        KeyVaultName: 'kv-carth'
-#        SecretsFilter: '*'
-#  
-#  - pwsh: |
-#      Write-Host "Values from Keyvault kv-carth"
-#      Write-Host $(secret2)
-
   - task: buildAndReleaseTask@0
     inputs:
       sampleString: 'This is my string'
