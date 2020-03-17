@@ -21,3 +21,5 @@ jobs:
       sampleNumber: '0'
       sampleBoolean: true
       action: 'choice2'
+
+  - script: echo output "=" $(outputFromCustomTask)
