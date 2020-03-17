@@ -20,6 +20,6 @@ jobs:
 
   - task: buildAndReleaseTask@0
     inputs:
-      sampleString: 'Hello string'
-      sampleNumber: '123'
-      sampleBoolean: true
+      sampleString: 'This is my string'
+      sampleNumber: '659'
+      sampleBoolean: false
