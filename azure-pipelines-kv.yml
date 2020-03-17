@@ -4,7 +4,6 @@ trigger:
     include:
     - master
 
-
 jobs:
 - job: RunCustomTask
   pool: 
@@ -14,7 +13,15 @@ jobs:
   - pwsh: |
       Write-Host "aVariable : " $env:aVariable
       Write-Host "mysecret : " $env:mysecret
-  
+  - task: InstallAzureDevOpsExtension@2
+    inputs:
+      connectTo: 'VsTeam'
+      connectedServiceName: 'Marketplace service connection'
+      method: 'id'
+      publisherId: 'Carth'
+      extensionId: 'build-release-task'
+      accounts: 'https://dev.azure.com/thierrycarels0265/'
+
   - task: CarthTask@0
     inputs:
       name: 'My Name CarthTask@0'
