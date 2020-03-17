@@ -18,6 +18,8 @@ jobs:
 #      Write-Host "Values from Keyvault kv-carth"
 #      Write-Host $(secret2)
 
-    - task: buildAndReleaseTask@0
-      inputs:
-        samplestring: 'fqfgsdfsd'
+  - task: buildAndReleaseTask@0
+    inputs:
+      sampleString: 'Hello string'
+      sampleNumber: '123'
+      sampleBoolean: true
