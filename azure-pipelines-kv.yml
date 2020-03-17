@@ -13,7 +13,7 @@ jobs:
   - checkout: none
   - pwsh: |
       Write-Host "aVariable : " $env:aVariable
-      Write-Host "mySecret : " $env:mySecret
+      Write-Host "mysecret : " $env:mysecret
   - task: HelloWorld@0
     inputs:
       name: 'My Name'
