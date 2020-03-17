@@ -10,6 +10,8 @@ jobs:
   pool: 
     vmImage: vs2017-win2016
   steps:
+  - checkout: self 
+    enabled: false
   - task: HelloWorld@0
     inputs:
       name: 'My Name'
