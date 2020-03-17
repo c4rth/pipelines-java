@@ -10,9 +10,11 @@ jobs:
     vmImage: vs2017-win2016
   steps:
   - checkout: none
-  - pwsh: |
-      Write-Host "aVariable : " $env:aVariable
-      Write-Host "mysecret : " $env:mysecret
+
+  - task: TfxInstaller@2
+    inputs:
+      version: 'v0.6.x'
+      
   - task: InstallAzureDevOpsExtension@2
     inputs:
       connectTo: 'VsTeam'
