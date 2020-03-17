@@ -8,15 +8,15 @@ trigger:
 jobs:
 - job: Keyvault
   steps:
-  - task: AzureKeyVault@1
-    inputs:
-        azureSubscription: 'rg-playground-carth-service-connection'
-        KeyVaultName: 'kv-carth'
-        SecretsFilter: '*'
-  
-  - pwsh: |
-      Write-Host "Values from Keyvault kv-carth"
-      Write-Host $(secret2)
+#  - task: AzureKeyVault@1
+#    inputs:
+#        azureSubscription: 'rg-playground-carth-service-connection'
+#        KeyVaultName: 'kv-carth'
+#        SecretsFilter: '*'
+#  
+#  - pwsh: |
+#      Write-Host "Values from Keyvault kv-carth"
+#      Write-Host $(secret2)
   
   - task: buildAndReleaseTask@0
     inputs:
