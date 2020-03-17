@@ -10,10 +10,11 @@ jobs:
   pool: 
     vmImage: vs2017-win2016
   steps:
-  - task: buildAndReleaseTask@0
+  - task: HelloWorld@0
     inputs:
-      sampleString: 'This is my string'
-      sampleNumber: '659'
+      name: 'My Name'
+      sampleString: 'This is a string'
+      sampleNumber: '0'
       sampleBoolean: true
-      ressourceGroupName: 'Hello from DevOps'
+      ressourceGroupName: 'Dummy RessourceGroupName'
       action: 'choice2'
