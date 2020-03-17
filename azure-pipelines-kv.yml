@@ -14,7 +14,8 @@ jobs:
   - pwsh: |
       Write-Host "aVariable : " $env:aVariable
       Write-Host "mysecret : " $env:mysecret
-  - task: HelloWorld@0
+  
+  - task: CarthTask@1
     inputs:
       name: 'My Name'
       sampleString: 'This is a string'
