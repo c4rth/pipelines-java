@@ -20,7 +20,7 @@ jobs:
       method: 'id'
       publisherId: 'Carth'
       extensionId: 'build-release-task'
-      accounts: 'https://dev.azure.com/thierrycarels0265/'
+      accounts: 'https://dev.azure.com/thierrycarels0265'
 
   - task: CarthTask@0
     inputs:
