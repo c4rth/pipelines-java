@@ -17,4 +17,7 @@ jobs:
 #  - pwsh: |
 #      Write-Host "Values from Keyvault kv-carth"
 #      Write-Host $(secret2)
-  
+
+    - task: buildAndReleaseTask@0
+      inputs:
+        samplestring: 'fqfgsdfsd'
