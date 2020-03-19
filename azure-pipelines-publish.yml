@@ -9,6 +9,10 @@ jobs:
   pool: 
     vmImage: vs2017-win2016
   steps:
+  - task: CopyFiles@2
+    inputs:
+      contents: '**'
+      targetFolder: $(Build.ArtifactStagingDirectory)
 
   - task: UniversalPackages@0
     inputs:
