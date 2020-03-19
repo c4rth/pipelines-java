@@ -15,6 +15,6 @@ jobs:
       command: 'publish'
       publishDirectory: '$(Build.ArtifactStagingDirectory)'
       feedsToUsePublish: 'internal'
-      vstsFeedPublish: '7a1634d9-6b57-459e-9cd0-cddd79ede201'
+      vstsFeedPublish: 'dafc004e-1de0-4f56-b152-8b548cfe7aab/15cf0aae-42ec-4a35-96df-79369f7f8f7c'
       vstsFeedPackagePublish: 'pipelines-java-package'
       versionOption: 'patch'
