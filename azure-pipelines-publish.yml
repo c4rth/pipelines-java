@@ -1,0 +1,20 @@
+trigger:
+  batch: true
+  branches:
+    include:
+    - master
+
+jobs:
+- job: RunCustomTask
+  pool: 
+    vmImage: vs2017-win2016
+  steps:
+
+  - task: UniversalPackages@0
+    inputs:
+      command: 'publish'
+      publishDirectory: '$(Build.ArtifactStagingDirectory)'
+      feedsToUsePublish: 'internal'
+      vstsFeedPublish: '7a1634d9-6b57-459e-9cd0-cddd79ede201'
+      vstsFeedPackagePublish: 'pipelines-java-package'
+      versionOption: 'patch'
