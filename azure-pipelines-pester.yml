@@ -1,0 +1,42 @@
+variables:
+- group: VariableGroup
+- name: global_variable
+  value: value_global-overwrite_1 
+- name: directory_include
+  value: ./include
+- template: ${{ variables.directory_include }}/variables.yml
+
+trigger:
+- master
+
+
+jobs:
+- job: jobD
+  variables:
+    testResultsFile: "$(Agent.WorkFolder)/testresults.xml"
+  steps:
+    - task: PowerShell@2
+      displayName: Run Pester...
+      inputs:
+        targetType: inline
+        script: |
+            $PSVersionTable
+
+            Install-Module -Name PSScriptAnalyzer -Force -ErrorAction Stop
+            Install-Module -Name Pester -Force -ErrorAction Stop
+
+            $PesterSettings = @{
+              Script = "$(System.DefaultWorkingDirectory)/tests/*.tests.ps1"
+              OutputFile = "$(testResultsFile)"
+              OutputFormat = "NUnitXml"
+              EnableExit = $true
+              Verbose = $true
+            }
+
+            Invoke-Pester @PesterSettings
+    
+    - task: PublishTestResults@2
+      displayName: Publish Pester tests results
+      inputs:
+        testResultsFormat: NUnit
+        testResultsFiles: $(testResultsFile)
