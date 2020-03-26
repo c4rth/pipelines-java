@@ -25,15 +25,17 @@ jobs:
             Install-Module -Name Pester -Force -ErrorAction Stop
 
             $PesterSettings = @{
-              Script = "$(System.DefaultWorkingDirectory)/tests/*.tests.ps1"
+              Script = @{
+                Path = "$(System.DefaultWorkingDirectory)/tests/pester.tests.ps1"
+                Parameters = @{
+                  parameter1 = 'value of parameter1'
+                  parameter2 = 'value of parameter2'
+                }
+              }
               OutputFile = "$(testResultsFile)"
               OutputFormat = "NUnitXml"
               EnableExit = $true
               Verbose = $true
-              Parameters = @{
-                parameter1 = 'value of parameter1'
-                parameter2 = 'value of parameter2'
-              }
             }
 
             Invoke-Pester @PesterSettings
