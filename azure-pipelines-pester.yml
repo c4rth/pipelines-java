@@ -15,11 +15,13 @@ jobs:
   variables:
     testResultsFile: "$(Agent.WorkFolder)/testresults.xml"
   steps:
-    - task: PowerShell@2
+    - task: AzurePowerShell@4
       displayName: Run Pester...
       inputs:
-        targetType: inline
-        script: |
+        azurePowerShellVersion: LatestVersion
+        azureSubscription: "rg-playground-carth-service-connection"
+        ScriptType: InlineScript
+        Inline: |
             $PSVersionTable
 
             Install-Module -Name Pester -Force -ErrorAction Stop

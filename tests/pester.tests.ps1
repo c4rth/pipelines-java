@@ -3,14 +3,8 @@ Param(
     [string]$parameter2
 )
 
-Write-Host "parameter 1 : " $parameter1
-Write-Host "parameter 2 : " $parameter2
-
-Write-Host "Get-InstalledModule"
-Get-InstalledModule
-
-Write-Host "Install-Module Az"
-Install-Module -Name Az -Force -ErrorAction Stop
+$rg = Get-AzResourceGroup -Name "test-rg-carth" 
+Write-Host "resource group `n" (ConvertTo-Json $rg)
 
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $here = Join-Path $here ".."
