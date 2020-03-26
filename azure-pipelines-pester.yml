@@ -22,8 +22,12 @@ jobs:
         script: |
             $PSVersionTable
 
-            Install-Module -Name PSScriptAnalyzer -Force -ErrorAction Stop
             Install-Module -Name Pester -Force -ErrorAction Stop
+
+            $Parameters = @{
+              parameter1 = 'value of parameter1'
+              parameter2 = 'value of parameter2'
+            }
 
             $PesterSettings = @{
               Script = "$(System.DefaultWorkingDirectory)/tests/*.tests.ps1"
@@ -31,6 +35,7 @@ jobs:
               OutputFormat = "NUnitXml"
               EnableExit = $true
               Verbose = $true
+              Parameters = @Parameters
             }
 
             Invoke-Pester @PesterSettings
