@@ -4,6 +4,8 @@ variables:
   value: value_global-overwrite_1 
 - name: directory_include
   value: ./include
+- name: aVariable
+  value: 'this is the build id : $(Build.BuildId)'
 - template: ${{ variables.directory_include }}/variables.yml
 
 trigger:
@@ -47,3 +49,4 @@ jobs:
       inputs:
         testResultsFormat: NUnit
         testResultsFiles: $(testResultsFile)
+        searchFolder: 
