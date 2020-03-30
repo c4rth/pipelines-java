@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<test-results xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="nunit_schema_2.5.xsd" name="Pester" total="5" errors="0" failures="0" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2020-03-30" time="15:09:18">
+  <environment os-version="19.4.0" platform="Darwin" nunit-version="2.5.8.0" clr-version="Unknown" user-domain="" cwd="/Users/es659/Temp/pipelines-java" machine-name="thierrys-mbp.lan" user="es659" />
+  <culture-info current-culture="en-GB" current-uiculture="en-GB" />
+  <test-suite type="TestFixture" name="Pester" executed="True" result="Success" success="True" time="0.0954" asserts="0" description="Pester">
+    <results>
+      <test-suite type="TestFixture" name="./tests/pester.tests.ps1" executed="True" result="Success" success="True" time="0.0954" asserts="0" description="./tests/pester.tests.ps1">
+        <results>
+          <test-suite type="TestFixture" name="MyTests" executed="True" result="Success" success="True" time="0.088" asserts="0" description="MyTests">
+            <results>
+              <test-suite type="TestFixture" name="Part2" executed="True" result="Success" success="True" time="0.0292" asserts="0" description="Part2">
+                <results>
+                  <test-case description="File must exist" name="MyTests.Part2.File must exist" time="0.0036" asserts="0" success="True" result="Success" executed="True" />
+                  <test-case description="Content" name="MyTests.Part2.Content" time="0.0062" asserts="0" success="True" result="Success" executed="True" />
+                </results>
+              </test-suite>
+              <test-suite type="TestFixture" name="Part1" executed="True" result="Success" success="True" time="0.0328" asserts="0" description="Part1">
+                <results>
+                  <test-case description="Test3" name="MyTests.Part1.Test3" time="0.0011" asserts="0" success="True" result="Success" executed="True" />
+                  <test-case description="Test1" name="MyTests.Part1.Test1" time="0.0012" asserts="0" success="True" result="Success" executed="True" />
+                  <test-case description="Test4" name="MyTests.Part1.Test4" time="0.0011" asserts="0" success="True" result="Success" executed="True" />
+                </results>
+              </test-suite>
+            </results>
+          </test-suite>
+        </results>
+      </test-suite>
+    </results>
+  </test-suite>
+</test-results>

@@ -14,45 +14,47 @@ function Get-String {
     return "XYZ"
 }
 
-Describe 'PSScriptAnalyzer analysis' {    
+Describe 'MyTests' {    
     #$file = Join-Path $scriptDir  "playground.ps1"
 
     $global:content = $null
 
-    Context("Part1") {
+
+    Context("Part2") {
         It 'File must exist' {
-            Write-Host "test1" $global:content
             $global:content = "Hello world"
             # $file | Should -Exist
-            Write-Host "test1" $global:content
+            $global:content | Should Not BeNullOrEmpty
         }
 
         It 'Content' {
-            Write-Host "test2" (Get-String)
-            Write-Host "test2" $global:content 
             $global:content | Should Not BeNullOrEmpty
         }
     }
 
-    Write-Host "Do something..." $global:content
     for ($i = 0; $i -lt 10; $i++) {
         $global:content += "$i "       
     }
-    Write-Host "Done..." $global:content
 
-    Context("Part2") {
-
+    Context("Part1") {
     
-        Write-Host "Do something"
         for ($i = 0; $i -lt 10; $i++) {
             $global:content += "$i "       
         }
     
         It 'Test3' {
-            Write-Host "test3" $global:content
             $global:content = "Hello world"
             # $file | Should -Exist
-            Write-Host "test3" $global:content
+        }
+
+        It 'Test1' {
+            $global:content = "Hello world"
+            # $file | Should -Exist
+        }
+
+        It 'Test4' {
+            $global:content = "Hello world"
+            # $file | Should -Exist
         }
     }
 }
