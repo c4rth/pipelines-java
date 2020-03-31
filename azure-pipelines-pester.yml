@@ -1,3 +1,5 @@
+name: TestPester-$(Build.BuildId)
+
 variables:
 - group: VariableGroup
 - name: global_variable
