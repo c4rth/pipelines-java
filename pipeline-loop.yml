@@ -1,0 +1,28 @@
+name: TestExtension-$(Build.BuildId)
+
+trigger:
+  batch: true
+  branches:
+    include:
+    - master
+
+jobs:
+- job: RunCustomTask
+  pool: 
+    vmImage: windows-latest
+  steps:
+  - checkout: none
+
+  - task: Carth.build-release-task.HelloBuildTask.CarthTask@0
+    inputs:
+      name: 'My Name CarthTask@0'
+      sampleString: 'This is a string CarthTask@0'
+      sampleNumber: '0'
+      sampleBoolean: true
+      action: 'choice2'
+
+  - task: Carth.build-release-task.HelloBuildTask.CarthTask@1
+    inputs:
+      azureSubscription: 'rg-playground-carth-service-connection'
+
+  - script: echo output "=" $(outputFromCustomTask)
