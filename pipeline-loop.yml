@@ -2,13 +2,6 @@ name: TestExtension-$(Build.BuildId)
 
 trigger: none
 
-variables:
-  myCollection:
-  - key: myKey1
-    value: my value 1
-  - key: myKey2
-    value: my value 2
-
 jobs:
 - job: Loop
   steps:
