@@ -49,6 +49,20 @@ jobs:
     - task: PublishTestResults@2
       displayName: Publish Pester tests results
       inputs:
-        testResultsFormat: NUnit
-        testResultsFiles: $(testResultsFile)
-        searchFolder: 
+        testResultsFormat: 'NUnit'
+        testResultsFiles: '$(testResultsFile)'
+
+    - task: AzureCLI@2
+      displayName: Download artificats
+      inputs:
+        azureSubscription: 'rg-playground-carth-service-connection'
+        scriptType: 'pscore'
+        scriptLocation: 'inlineScript'
+        inlineScript: |
+           az artifacts universal download --organization https://dev.azure.com/thierrycarels0265/ `
+                                    --project="pipeline-playground" `
+                                    --scope project `
+                                    --feed publish-feed `
+                                    --name my-first-package `
+                                    --version 0.0.1 `
+                                    --path .
