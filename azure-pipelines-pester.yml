@@ -67,6 +67,8 @@ jobs:
 
     - task: AzurePowerShell@5
       displayName: Download artificats AzurePowerShell
+      env:
+        AZURE_DEVOPS_CLI_PAT: $(System.AccessToken)
       inputs:
         azureSubscription: 'rg-playground-carth-service-connection'
         ScriptType: 'InlineScript'
@@ -82,6 +84,8 @@ jobs:
 
     - task: AzureCLI@2
       displayName: Download artificats AzureCLI
+      env:
+        AZURE_DEVOPS_CLI_PAT: $(System.AccessToken)
       inputs:
         azureSubscription: 'rg-playground-carth-service-connection'
         scriptType: 'pscore'
