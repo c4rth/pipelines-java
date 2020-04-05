@@ -65,6 +65,11 @@ jobs:
           $PSVersionTable
           az --version
 
+    - script: echo $(System.AccessToken) | az devops login
+      env:
+        AZURE_DEVOPS_CLI_PAT: $(System.AccessToken)
+      displayName: 'Login Azure DevOps Extension'
+      
     - task: AzurePowerShell@5
       displayName: Download artificats AzurePowerShell
       env:
