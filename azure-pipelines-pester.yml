@@ -21,6 +21,7 @@ jobs:
   steps:
     - task: AzurePowerShell@4
       displayName: Run Pester...
+      condition: false
       inputs:
         azurePowerShellVersion: LatestVersion
         azureSubscription: "rg-playground-carth-service-connection"
@@ -48,6 +49,7 @@ jobs:
     
     - task: PublishTestResults@2
       displayName: Publish Pester tests results
+      condition: false
       inputs:
         testResultsFormat: 'NUnit'
         testResultsFiles: '$(testResultsFile)'
@@ -56,7 +58,7 @@ jobs:
       displayName: Show info
       inputs:
         azureSubscription: 'rg-playground-carth-service-connection'
-        ScriptType: 'pscore'
+        scriptType: 'ps'
         scriptLocation: 'inlineScript'
         inlineScript: |
           $PSVersionTable
