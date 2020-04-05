@@ -58,12 +58,20 @@ jobs:
         azureSubscription: 'rg-playground-carth-service-connection'
         ScriptType: 'InlineScript'
         Inline: |
+          az --version
+
+    - task: AzurePowerShell@5
+      displayName: Download artificats AzurePowerShell
+      inputs:
+        azureSubscription: 'rg-playground-carth-service-connection'
+        ScriptType: 'InlineScript'
+        Inline: |
           az artifacts universal download --organization https://dev.azure.com/thierrycarels0265/ `
                                     --project="pipeline-playground" `
                                     --scope project `
                                     --feed publish-feed `
-                                    --name my-first-package `
-                                    --version 0.0.1 `
+                                    --name pipelines-java-package `
+                                    --version 0.0.10 `
                                     --path .
 
     - task: AzureCLI@2
@@ -77,6 +85,6 @@ jobs:
                                     --project="pipeline-playground" `
                                     --scope project `
                                     --feed publish-feed `
-                                    --name my-first-package `
-                                    --version 0.0.1 `
+                                    --name pipelines-java-package `
+                                    --version 0.0.10 `
                                     --path .
