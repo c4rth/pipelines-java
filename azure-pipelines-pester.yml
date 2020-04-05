@@ -52,12 +52,14 @@ jobs:
         testResultsFormat: 'NUnit'
         testResultsFiles: '$(testResultsFile)'
 
-    - task: AzurePowerShell@5
-      displayName: Download artificats AzurePowerShell
+    - task: AzureCLI@2
+      displayName: Show info
       inputs:
         azureSubscription: 'rg-playground-carth-service-connection'
-        ScriptType: 'InlineScript'
-        Inline: |
+        ScriptType: 'pscore'
+        scriptLocation: 'inlineScript'
+        inlineScript: |
+          $PSVersionTable
           az --version
 
     - task: AzurePowerShell@5
