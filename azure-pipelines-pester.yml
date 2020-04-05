@@ -13,9 +13,10 @@ variables:
 trigger:
 - master
 
-
 jobs:
 - job: jobD
+  pool:
+    vmImage: 'windows-latest'
   variables:
     testResultsFile: "$(Agent.WorkFolder)/testresults.xml"
   steps:
