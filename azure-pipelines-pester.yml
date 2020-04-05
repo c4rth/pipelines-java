@@ -78,6 +78,7 @@ jobs:
                                     --name pipelines-java-package `
                                     --version 0.0.10 `
                                     --path .
+        azurePowerShellVersion: 'LatestVersion'
 
     - task: AzureCLI@2
       displayName: Download artificats AzureCLI
