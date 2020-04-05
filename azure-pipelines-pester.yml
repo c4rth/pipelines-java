@@ -52,8 +52,22 @@ jobs:
         testResultsFormat: 'NUnit'
         testResultsFiles: '$(testResultsFile)'
 
+    - task: AzurePowerShell@5
+      displayName: Download artificats AzurePowerShell
+      inputs:
+        azureSubscription: 'rg-playground-carth-service-connection'
+        ScriptType: 'InlineScript'
+        Inline: |
+          az artifacts universal download --organization https://dev.azure.com/thierrycarels0265/ `
+                                    --project="pipeline-playground" `
+                                    --scope project `
+                                    --feed publish-feed `
+                                    --name my-first-package `
+                                    --version 0.0.1 `
+                                    --path .
+
     - task: AzureCLI@2
-      displayName: Download artificats
+      displayName: Download artificats AzureCLI
       inputs:
         azureSubscription: 'rg-playground-carth-service-connection'
         scriptType: 'pscore'
