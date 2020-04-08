@@ -25,22 +25,22 @@ jobs:
       inputs:
         targetType: inline
         script: |
-            $Env:RANDFILE = "$(System.DefaultWorkingDirectory)/.rnd"
-            
-            Get-ChildItem Env: | Sort Name
-
             $path = "$(System.DefaultWorkingDirectory)/cert"
             mkdir $path -ErrorAction SilentlyContinue
+            $rand = "$path/rnd"
             $private = "$path/private.pem"
             $public = "$path/public.pem"
             $pfx = "$path/testcert.pfx"
             $password = 'DumyPwd'
-
+            
+            Write-Host "*** generate random"
+            openssl rand -out $rand 659
+            
             Write-Host "*** generate private"
             openssl genrsa -aes128 -passout pass:$password -out $private 2048
 
             Write-Host "*** generate public"
-            openssl req -x509 -new -key $private -subj "/C=BE/ST=Brussels/L=Brussels/O=Belfius Bank/OU=CCoE/CN=belfius.be" -out $public -passin pass:$password
+            openssl req -x509 -new -key $private -subj "/C=BE/ST=Brussels/L=Brussels/O=Belfius Bank/OU=CCoE/CN=belfius.be" -out $public -passin pass:$password  -rand $rand
 
             Write-Host "*** generate pfx"
             openssl pkcs12 -export -in $public -inkey $private -out $pfx -passout pass:$password -passin pass:$password
