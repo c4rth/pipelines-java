@@ -26,10 +26,23 @@ jobs:
         targetType: inline
         script: |
             $path = "$(Agent.TempDirectory)/cert"
-            mkdir $path
-            openssl genrsa 2048 > $path/private.pem
-            openssl req -x509 -new -key $path/private.pem -out $path/public.pem
-            openssl pkcs12 -export -in $path/public.pem -inkey $path/private.pem -out $path/testcert.pfx
+            mkdir $path -ErrorAction SilentlyContinue
+            $private = "$path/private.pem"
+            $public = "$path/public.pem"
+            $pfx = "$path/testcert.pfx"
+            $password = 'DumyPwd'
+
+            Write-Host "*** generate private"
+            openssl genrsa -aes128 -passout pass:$password -out $private 2048
+
+            Write-Host "*** generate public"
+            openssl req -x509 -new -key $private -subj "/C=BE/ST=Brussels/L=Brussels/O=Belfius Bank/OU=CCoE/CN=belfius.be" -out $public -passin pass:$password
+
+            Write-Host "*** generate pfx"
+            openssl pkcs12 -export -in $public -inkey $private -out $pfx -passout pass:$password -passin pass:$password
+
+            Write-Host "*** get info"
+            openssl pkcs12 -info -in $pfx -passin pass:$password -passout pass:$password
 
     - task: AzurePowerShell@4
       displayName: Run Pester...
