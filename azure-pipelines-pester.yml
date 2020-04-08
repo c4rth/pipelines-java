@@ -37,7 +37,7 @@ jobs:
             openssl rand -out $rand 659
             
             Write-Host "*** generate private"
-            openssl genrsa -aes128 -passout pass:$password -out $private 2048
+            openssl genrsa -aes128 -passout pass:$password -out $private 2048 -rand $rand
 
             Write-Host "*** generate public"
             openssl req -x509 -new -key $private -subj "/C=BE/ST=Brussels/L=Brussels/O=Belfius Bank/OU=CCoE/CN=belfius.be" -out $public -passin pass:$password  -rand $rand
