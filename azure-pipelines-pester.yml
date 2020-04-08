@@ -25,7 +25,7 @@ jobs:
       inputs:
         targetType: inline
         script: |
-            $path=$(Agent.TempDirectory)/cert
+            $path = "$(Agent.TempDirectory)/cert"
             mkdir $path
             openssl genrsa 2048 > $path/private.pem
             openssl req -x509 -new -key $path/private.pem -out $path/public.pem
