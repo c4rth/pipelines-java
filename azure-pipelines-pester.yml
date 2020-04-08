@@ -27,7 +27,7 @@ jobs:
         script: |
             Get-ChildItem Env:
             
-            $path = "$(Agent.TempDirectory)/cert"
+            $path = "$(System.DefaultWorkingDirectory)/cert"
             mkdir $path -ErrorAction SilentlyContinue
             $private = "$path/private.pem"
             $public = "$path/public.pem"
