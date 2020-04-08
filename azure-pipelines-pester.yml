@@ -25,8 +25,7 @@ jobs:
       inputs:
         targetType: inline
         script: |
-            Get-ChildItem Env:
-            Env:RANDFILE = "$(System.DefaultWorkingDirectory)\.rnd"
+            $Env:RANDFILE = "$(System.DefaultWorkingDirectory)/.rnd"
             
             $path = "$(System.DefaultWorkingDirectory)/cert"
             mkdir $path -ErrorAction SilentlyContinue
