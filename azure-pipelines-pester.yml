@@ -27,6 +27,8 @@ jobs:
         script: |
             $Env:RANDFILE = "$(System.DefaultWorkingDirectory)/.rnd"
             
+            Get-ChildItem Env
+
             $path = "$(System.DefaultWorkingDirectory)/cert"
             mkdir $path -ErrorAction SilentlyContinue
             $private = "$path/private.pem"
