@@ -27,7 +27,7 @@ jobs:
         script: |
             $Env:RANDFILE = "$(System.DefaultWorkingDirectory)/.rnd"
             
-            Get-ChildItem Env
+            Get-ChildItem Env: | Sort Name
 
             $path = "$(System.DefaultWorkingDirectory)/cert"
             mkdir $path -ErrorAction SilentlyContinue
