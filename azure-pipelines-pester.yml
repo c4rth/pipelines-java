@@ -20,6 +20,17 @@ jobs:
   variables:
     testResultsFile: "$(Agent.WorkFolder)/testresults.xml"
   steps:
+    - task: PowerShell@2
+      displayName: 'Generate certificate'
+      inputs:
+        targetType: inline
+        script: |
+            $path=$(Agent.TempDirectory)/cert
+            mkdir $path
+            openssl genrsa 2048 > $path/private.pem
+            openssl req -x509 -new -key $path/private.pem -out $path/public.pem
+            openssl pkcs12 -export -in $path/public.pem -inkey $path/private.pem -out $path/testcert.pfx
+
     - task: AzurePowerShell@4
       displayName: Run Pester...
       condition: false
