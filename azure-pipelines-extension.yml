@@ -13,7 +13,7 @@ jobs:
   steps:
   - checkout: none
 
-  - task: Carth.build-release-task.HelloBuildTask.CarthTask@0
+  - task: CarthTask@0
     inputs:
       name: 'My Name CarthTask@0'
       sampleString: 'This is a string CarthTask@0'
@@ -21,7 +21,7 @@ jobs:
       sampleBoolean: true
       action: 'choice2'
 
-  - task: Carth.build-release-task.HelloBuildTask.CarthTask@1
+  - task: CarthTask@1
     inputs:
       azureSubscription: 'rg-playground-carth-service-connection'
 
