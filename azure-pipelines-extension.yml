@@ -22,6 +22,7 @@ jobs:
       action: 'choice2'
 
   - task: CarthTask@1
+    name: NameOfCarthTaskv1
     condition: succeededOrFailed()
     inputs:
       azureSubscription: 'rg-playground-carth-service-connection'
