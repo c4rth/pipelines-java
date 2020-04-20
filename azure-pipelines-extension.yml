@@ -26,4 +26,6 @@ jobs:
     inputs:
       azureSubscription: 'rg-playground-carth-service-connection'
 
-  - script: echo output "=" $(outputFromCustomTask)
+  - script: |
+        echo "output 1 =" $(outputFromCustomTask)
+        echo "output 2 =" $(NameOfCarthTaskv1.outputFromCustomTask)
