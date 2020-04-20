@@ -33,3 +33,5 @@ jobs:
   - script: |
         echo "output1 1 =" $(outputFromCustomTaskV1)
         echo "output1 2 =" $(NameOfCarthTaskv1.outputFromCustomTaskV1)
+        echo "exampleName1 =" $(exampleName)
+        echo "exampleName2 =" $(NameOfCarthTaskv1.exampleName)
