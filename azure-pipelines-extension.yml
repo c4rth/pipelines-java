@@ -13,13 +13,13 @@ jobs:
   steps:
   - checkout: none
 
-  - task: CarthTask@0
-    inputs:
-      name: 'My Name CarthTask@0'
-      sampleString: 'This is a string CarthTask@0'
-      sampleNumber: '0'
-      sampleBoolean: true
-      action: 'choice2'
+ # - task: CarthTask@0
+ #   inputs:
+ #     name: 'My Name CarthTask@0'
+ #     sampleString: 'This is a string CarthTask@0'
+ #     sampleNumber: '0'
+ #     sampleBoolean: true
+ #     action: 'choice2'
 
   - task: CarthTask@1
     name: NameOfCarthTaskv1
@@ -30,3 +30,7 @@ jobs:
   - script: |
         echo "output 1 =" $(outputFromCustomTask)
         echo "output 2 =" $(NameOfCarthTaskv1.outputFromCustomTask)
+
+  - script: |
+        echo "output 1 =" $[outputFromCustomTask]
+        echo "output 2 =" $[NameOfCarthTaskv1.outputFromCustomTask]
