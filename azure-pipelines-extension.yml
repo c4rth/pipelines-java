@@ -6,24 +6,13 @@ trigger:
     include:
     - master
 
+pool: 
+  vmImage: windows-latest
+
 jobs:
 - job: RunCustomTask
-  pool: 
-    vmImage: windows-latest
   steps:
   - checkout: none
-
-  - task: CarthTask@0
-    inputs:
-      name: 'My Name CarthTask@0'
-      sampleString: 'This is a string CarthTask@0'
-      sampleNumber: '0'
-      sampleBoolean: true
-      action: 'choice2'
-
-  - script: |
-        echo "output0 1 =" $(outputFromCustomTaskV0)
-
   - task: CarthTask@1
     name: NameOfCarthTaskv1
     condition: succeededOrFailed()
@@ -35,3 +24,20 @@ jobs:
         echo "output1 2 =" $(NameOfCarthTaskv1.outputFromCustomTaskV1)
         echo "exampleName1 =" $(exampleName)
         echo "exampleName2 =" $(NameOfCarthTaskv1.exampleName)
+
+- job: OtherTask
+  dependsOn: RunCustomTask
+  variables:
+    var1FromCarthTaskv1 : $[ dependencies.RunCustomTask.outputs['NameOfCarthTaskv1.outputFromCustomTaskV1'] ]
+    var2FromCarthTaskv1 : $[ dependencies.RunCustomTask.outputs['NameOfCarthTaskv1.exampleName'] ]
+    var3FromCarthTaskv1 : $[ dependencies.RunCustomTask.outputs['outputFromCustomTaskV1'] ]
+    var4FromCarthTaskv1 : $[ dependencies.RunCustomTask.outputs['exampleName'] ]
+  steps:
+  - checkout: none
+  - script: |
+        echo "var1FromCarthTaskv1 =" $(var1FromCarthTaskv1)
+        echo "var2FromCarthTaskv1 =" $(var2FromCarthTaskv1)
+        echo "var3FromCarthTaskv1 =" $(var3FromCarthTaskv1)
+        echo "var4FromCarthTaskv1 =" $(var4FromCarthTaskv1)
+  
+    
