@@ -18,9 +18,7 @@ jobs:
     inputs:
       azureSubscription: 'rg-playground-carth-service-connection'
   - script: |
-        echo output1 1 = $(outputFromCustomTaskV1)
         echo output1 2 = $(CarthTaskName.outputFromCustomTaskV1)
-        echo exampleName1 = $(exampleName)
         echo exampleName2 = $(CarthTaskName.exampleName)
 
 - job: OtherTask
@@ -28,14 +26,10 @@ jobs:
   variables:
     var1FromCarthTask : $[ dependencies.RunCustomTask.outputs['CarthTaskName.outputFromCustomTaskV1'] ]
     var2FromCarthTask : $[ dependencies.RunCustomTask.outputs['CarthTaskName.exampleName'] ]
-    var3FromCarthTask : $[ dependencies.RunCustomTask.outputs['outputFromCustomTaskV1'] ]
-    var4FromCarthTask : $[ dependencies.RunCustomTask.outputs['exampleName'] ]
   steps:
   - checkout: none
   - script: |
         echo var1FromCarthTaskv1 = $(var1FromCarthTask)
         echo var2FromCarthTaskv1 = $(var2FromCarthTask)
-        echo var3FromCarthTaskv1 = $(var3FromCarthTask)
-        echo var4FromCarthTaskv1 = $(var4FromCarthTask)
   
     
