@@ -14,30 +14,28 @@ jobs:
   steps:
   - checkout: none
   - task: CarthTask@1
-    name: NameOfCarthTaskv1
-    condition: succeededOrFailed()
+    name: CarthTaskName
     inputs:
       azureSubscription: 'rg-playground-carth-service-connection'
-
   - script: |
-        echo "output1 1 =" $(outputFromCustomTaskV1)
-        echo "output1 2 =" $(NameOfCarthTaskv1.outputFromCustomTaskV1)
-        echo "exampleName1 =" $(exampleName)
-        echo "exampleName2 =" $(NameOfCarthTaskv1.exampleName)
+        echo output1 1 = $(outputFromCustomTaskV1)
+        echo output1 2 = $(CarthTaskName.outputFromCustomTaskV1)
+        echo exampleName1 = $(exampleName)
+        echo exampleName2 = $(CarthTaskName.exampleName)
 
 - job: OtherTask
   dependsOn: RunCustomTask
   variables:
-    var1FromCarthTaskv1 : $[ dependencies.RunCustomTask.outputs['NameOfCarthTaskv1.outputFromCustomTaskV1'] ]
-    var2FromCarthTaskv1 : $[ dependencies.RunCustomTask.outputs['NameOfCarthTaskv1.exampleName'] ]
-    var3FromCarthTaskv1 : $[ dependencies.RunCustomTask.outputs['outputFromCustomTaskV1'] ]
-    var4FromCarthTaskv1 : $[ dependencies.RunCustomTask.outputs['exampleName'] ]
+    var1FromCarthTask : $[ dependencies.RunCustomTask.outputs['CarthTaskName.outputFromCustomTaskV1'] ]
+    var2FromCarthTask : $[ dependencies.RunCustomTask.outputs['CarthTaskName.exampleName'] ]
+    var3FromCarthTask : $[ dependencies.RunCustomTask.outputs['outputFromCustomTaskV1'] ]
+    var4FromCarthTask : $[ dependencies.RunCustomTask.outputs['exampleName'] ]
   steps:
   - checkout: none
   - script: |
-        echo "var1FromCarthTaskv1 =" $(var1FromCarthTaskv1)
-        echo "var2FromCarthTaskv1 =" $(var2FromCarthTaskv1)
-        echo "var3FromCarthTaskv1 =" $(var3FromCarthTaskv1)
-        echo "var4FromCarthTaskv1 =" $(var4FromCarthTaskv1)
+        echo var1FromCarthTaskv1 = $(var1FromCarthTask)
+        echo var2FromCarthTaskv1 = $(var2FromCarthTask)
+        echo var3FromCarthTaskv1 = $(var3FromCarthTask)
+        echo var4FromCarthTaskv1 = $(var4FromCarthTask)
   
     
